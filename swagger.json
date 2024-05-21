@@ -1,0 +1,66 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Jira Attachments API",
+      "description": "API for uploading attachments to Jira issues",
+      "version": "1.0.0"
+    },
+    "host": "wizardcode.atlassian.net",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/rest/api/3/issue/{issueIdOrKey}/attachments": {
+        "post": {
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "issueIdOrKey",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "file",
+              "in": "formData",
+              "required": true,
+              "type": "file"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Attachment"
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Attachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
